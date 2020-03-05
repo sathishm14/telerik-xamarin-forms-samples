@@ -187,7 +187,7 @@ namespace ErpApp.ViewModels
             if (Device.Idiom != TargetIdiom.Phone)
                 return;
 
-            this.navigationService.Navigate<ProductDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(product.Id, PresentationMode.Read));
+            this.navigationService.Navigate<ProductDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(product.Id, Models.PresentationMode.Read));
             this.SelectedProduct = null;
         }
 
@@ -230,7 +230,7 @@ namespace ErpApp.ViewModels
 
         private void OnCreateProduct()
         {
-            this.navigationService.Navigate<ProductDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, PresentationMode.Create));
+            this.navigationService.Navigate<ProductDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, Models.PresentationMode.Create));
         }
 
         private void OnEditProduct(Product product)
@@ -238,7 +238,7 @@ namespace ErpApp.ViewModels
             if (product == null)
                 return;
 
-            this.navigationService.Navigate<ProductDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(product.Id, PresentationMode.Edit));
+            this.navigationService.Navigate<ProductDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(product.Id, Models.PresentationMode.Edit));
         }
 
         private void ShowAboutPage()

@@ -135,7 +135,7 @@ namespace ErpApp.ViewModels
         private void DisplayOrderDetail(Order order)
         {
             this.selectedOrderDetail = order;
-            this.navigationService.Navigate<OrderDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(order?.Id, PresentationMode.Read));
+            this.navigationService.Navigate<OrderDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(order?.Id, Models.PresentationMode.Read));
         }
 
         private void OnSelectedOrderChanged(Order newOrder)
@@ -190,7 +190,7 @@ namespace ErpApp.ViewModels
 
         private void CreateOrder()
         {
-            this.navigationService.Navigate<OrderDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, PresentationMode.Create));
+            this.navigationService.Navigate<OrderDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, Models.PresentationMode.Create));
         }
 
         private async Task OnSearch()

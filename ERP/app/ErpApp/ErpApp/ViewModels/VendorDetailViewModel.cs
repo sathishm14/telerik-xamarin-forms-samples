@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ErpApp.Models;
+﻿using ErpApp.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ErpApp.ViewModels
@@ -25,7 +25,7 @@ namespace ErpApp.ViewModels
         private IMvxNavigationService navigationService;
         private Vendor targetVendor, draftVendor;
         private string targetVendorId;
-        private PresentationMode mode;
+        private Models.PresentationMode mode;
         private string title;
 
         public Vendor Vendor
@@ -54,7 +54,7 @@ namespace ErpApp.ViewModels
             }
         }
 
-        public PresentationMode Mode
+        public Models.PresentationMode Mode
         {
             get => this.mode;
             private set
@@ -67,9 +67,9 @@ namespace ErpApp.ViewModels
             }
         }
 
-        public bool IsReading => this.targetVendor != null && this.mode == PresentationMode.Read;
+        public bool IsReading => this.targetVendor != null && this.mode == Models.PresentationMode.Read;
         public bool IsEditing => this.draftVendor != null &&
-            (this.mode == PresentationMode.Edit || this.mode == PresentationMode.Create);
+            (this.mode == Models.PresentationMode.Edit || this.mode == Models.PresentationMode.Create);
 
         public string Title
         {
@@ -93,7 +93,7 @@ namespace ErpApp.ViewModels
             await base.Initialize();
 
             Vendor vendor = null;
-            if (this.mode == PresentationMode.Create)
+            if (this.mode == Models.PresentationMode.Create)
             {
                 vendor = new Vendor();
                 vendor.ImageURL = Constants.EmptyVendorImage;
@@ -113,7 +113,7 @@ namespace ErpApp.ViewModels
             if (vendor == null)
                 return;
 
-            if (this.mode == PresentationMode.Edit)
+            if (this.mode == Models.PresentationMode.Edit)
             {
                 this.targetVendor = vendor;
                 var copy = vendor.Copy();
@@ -131,13 +131,13 @@ namespace ErpApp.ViewModels
         {
             switch (this.mode)
             {
-                case PresentationMode.Read:
+                case Models.PresentationMode.Read:
                     this.Title = this.targetVendor.Name;
                     break;
-                case PresentationMode.Edit:
+                case Models.PresentationMode.Edit:
                     this.Title = $"Edit Vendor";
                     break;
-                case PresentationMode.Create:
+                case Models.PresentationMode.Create:
                     this.Title = "Add New Vendor";
                     break;
             }
@@ -149,7 +149,7 @@ namespace ErpApp.ViewModels
                 return;
 
             var vendor = this.targetVendor.Copy();
-            this.Mode = PresentationMode.Edit;
+            this.Mode = Models.PresentationMode.Edit;
             UpdateTitle();
             this.InitializeEditData(vendor);
             this.DraftVendor = vendor;
@@ -170,15 +170,15 @@ namespace ErpApp.ViewModels
 
         private async Task OnCancel()
         {
-            if (this.mode == PresentationMode.Read)
+            if (this.mode == Models.PresentationMode.Read)
                 return;
 
             this.DraftVendor = null;
             this.UpdateTitle();
 
-            if (this.mode == PresentationMode.Edit)
+            if (this.mode == Models.PresentationMode.Edit)
             {
-                this.Mode = PresentationMode.Read;
+                this.Mode = Models.PresentationMode.Read;
             }
 
             await this.navigationService.ChangePresentation(new MvvmCross.Presenters.Hints.MvxPopPresentationHint(typeof(VendorsViewModel)));
@@ -186,7 +186,7 @@ namespace ErpApp.ViewModels
 
         private async Task OnCommitEditOrder()
         {
-            if (this.Mode == PresentationMode.Read)
+            if (this.Mode == Models.PresentationMode.Read)
                 return;
 
             if (!this.draftVendor.Validate(out IList<string> errors))
@@ -200,7 +200,7 @@ namespace ErpApp.ViewModels
             this.DraftVendor = null;
             this.targetVendor = null;
             this.Vendor = updatedVendor;
-            this.Mode = PresentationMode.Read;
+            this.Mode = Models.PresentationMode.Read;
 
             this.UpdateTitle();
 

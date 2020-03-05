@@ -141,7 +141,7 @@ namespace ErpApp.ViewModels
             if (Device.Idiom != TargetIdiom.Phone)
                 return;
 
-            this.navigationService.Navigate<VendorDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(vendor.Id, PresentationMode.Read));
+            this.navigationService.Navigate<VendorDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(vendor.Id, Models.PresentationMode.Read));
             this.SelectedVendor = null;
         }
 
@@ -184,7 +184,7 @@ namespace ErpApp.ViewModels
 
         private void OnCreateVendor()
         {
-            this.navigationService.Navigate<VendorDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, PresentationMode.Create));
+            this.navigationService.Navigate<VendorDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, Models.PresentationMode.Create));
         }
 
         private void OnEditVendor(Vendor vendor)
@@ -192,7 +192,7 @@ namespace ErpApp.ViewModels
             if (vendor == null)
                 return;
 
-            this.navigationService.Navigate<VendorDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(vendor.Id, PresentationMode.Edit));
+            this.navigationService.Navigate<VendorDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(vendor.Id, Models.PresentationMode.Edit));
         }
 
         private void ShowAboutPage()

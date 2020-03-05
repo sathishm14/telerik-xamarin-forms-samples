@@ -118,7 +118,7 @@ namespace ErpApp.ViewModels
 
         private async Task OnSelect(object item)
         {
-            PresentationContext<string> ctx = new PresentationContext<string>((item as IEntity).Id, PresentationMode.Read);
+            PresentationContext<string> ctx = new PresentationContext<string>((item as IEntity).Id, Models.PresentationMode.Read);
             await this.navigationService.Navigate<PresentationContext<string>>(GetDetailViewModelForItem(item), ctx);
         }
 

@@ -137,7 +137,7 @@ namespace ErpApp.ViewModels
         private void DisplayCustomerDetail(Customer customer)
         {
             this.selectedCustomerDetail = customer;
-            this.navigationService.Navigate<CustomerDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(customer?.Id, PresentationMode.Read));
+            this.navigationService.Navigate<CustomerDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(customer?.Id, Models.PresentationMode.Read));
         }
 
         private async void OnCustomerUpdated(CustomerUpdatedMessage message)
@@ -178,7 +178,7 @@ namespace ErpApp.ViewModels
 
         private void OnCreateCustomer()
         {
-            this.navigationService.Navigate<CustomerDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, PresentationMode.Create));
+            this.navigationService.Navigate<CustomerDetailViewModel, PresentationContext<string>>(new PresentationContext<string>(null, Models.PresentationMode.Create));
         }
 
         private async Task OnSearch()

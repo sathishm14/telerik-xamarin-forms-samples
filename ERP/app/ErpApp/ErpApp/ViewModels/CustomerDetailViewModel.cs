@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using ErpApp.Models;
+﻿using ErpApp.Models;
 using ErpApp.Services;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using PresentationMode = ErpApp.Models.PresentationMode;
 
 namespace ErpApp.ViewModels
 {

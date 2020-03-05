@@ -28,7 +28,7 @@ namespace ErpApp.ViewModels
         private IMvxNavigationService navigationService;
         private Product targetProduct, draftProduct;
         private string targetProductId;
-        private PresentationMode mode;
+        private Models.PresentationMode mode;
         private int selectedBrushIndex;
         private string title;
         private List<RadBrush> availableBrushes;
@@ -65,7 +65,7 @@ namespace ErpApp.ViewModels
             }
         }
 
-        public PresentationMode Mode
+        public Models.PresentationMode Mode
         {
             get => this.mode;
             private set
@@ -78,9 +78,9 @@ namespace ErpApp.ViewModels
             }
         }
 
-        public bool IsReading => this.targetProduct != null && this.mode == PresentationMode.Read;
+        public bool IsReading => this.targetProduct != null && this.mode == Models.PresentationMode.Read;
         public bool IsEditing => this.draftProduct != null &&
-            (this.mode == PresentationMode.Edit || this.mode == PresentationMode.Create);
+            (this.mode == Models.PresentationMode.Edit || this.mode == Models.PresentationMode.Create);
 
         public int SelectedBrushIndex
         {
@@ -111,7 +111,7 @@ namespace ErpApp.ViewModels
             await base.Initialize();
 
             Product product = null;
-            if (this.mode == PresentationMode.Create)
+            if (this.mode == Models.PresentationMode.Create)
             {
                 product = new Product();
                 product.ImageURL = Constants.EmptyProductImage;
@@ -131,7 +131,7 @@ namespace ErpApp.ViewModels
             if (product == null)
                 return;
                 
-            if (this.mode == PresentationMode.Edit)
+            if (this.mode == Models.PresentationMode.Edit)
             {
                 this.targetProduct = product;
                 var copy = product.Copy();
@@ -149,13 +149,13 @@ namespace ErpApp.ViewModels
         {
             switch (this.mode)
             {
-                case PresentationMode.Read:
+                case Models.PresentationMode.Read:
                     this.Title = this.targetProduct.Name;
                     break;
-                case PresentationMode.Edit:
+                case Models.PresentationMode.Edit:
                     this.Title = $"Edit Product";
                     break;
-                case PresentationMode.Create:
+                case Models.PresentationMode.Create:
                     this.Title = "Add New Product";
                     break;
             }
@@ -167,7 +167,7 @@ namespace ErpApp.ViewModels
                 return;
 
             var product = this.targetProduct.Copy();
-            this.Mode = PresentationMode.Edit;
+            this.Mode = Models.PresentationMode.Edit;
             UpdateTitle();
             this.InitializeEditData(product);
             this.DraftProduct = product;
@@ -188,15 +188,15 @@ namespace ErpApp.ViewModels
 
         private async Task OnCancel()
         {
-            if (this.mode == PresentationMode.Read)
+            if (this.mode == Models.PresentationMode.Read)
                 return;
 
             this.DraftProduct = null;
             this.UpdateTitle();
 
-            if (this.mode == PresentationMode.Edit)
+            if (this.mode == Models.PresentationMode.Edit)
             {
-                this.Mode = PresentationMode.Read;
+                this.Mode = Models.PresentationMode.Read;
             }
 
             await this.navigationService.ChangePresentation(new MvvmCross.Presenters.Hints.MvxPopPresentationHint(typeof(ProductsViewModel)));
@@ -204,7 +204,7 @@ namespace ErpApp.ViewModels
 
         private async Task OnCommitEditOrder()
         {
-            if (this.Mode == PresentationMode.Read)
+            if (this.Mode == Models.PresentationMode.Read)
                 return;
 
             if (!this.draftProduct.Validate(out IList<string> errors))
@@ -218,7 +218,7 @@ namespace ErpApp.ViewModels
             this.DraftProduct = null;
             this.targetProduct = null;
             this.Product = updatedProduct;
-            this.Mode = PresentationMode.Read;
+            this.Mode = Models.PresentationMode.Read;
 
             this.UpdateTitle();
 
